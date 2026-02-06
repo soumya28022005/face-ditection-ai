@@ -5,9 +5,9 @@
 
 const express = require('express');
 const router = express.Router();
-const emotionController = require('../controllers/emotionController');
-const responseController = require('../controllers/responseController');
-const db = require('../config/database');
+const emotionController = require('../../controllers/emotionController');
+const responseController = require('../../controllers/responseController');
+const db = require('../../config/database');
 
 /**
  * POST /api/analyze
