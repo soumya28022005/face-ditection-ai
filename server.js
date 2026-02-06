@@ -5,19 +5,21 @@
 
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Database connection
-const db = require('./server/config/database');
+const db = require('./config/database');
 
 // API Routes
 const apiRoutes = require('./server/routes/api');
@@ -30,11 +32,8 @@ app.get('/', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error('Server error:', err);
-    res.status(500).json({
-        error: 'Internal server error',
-        message: err.message
-    });
+  console.error(err.stack);
+  res.status(500).send({ error: 'Something went wrong!' });
 });
 
 // Initialize database tables
